@@ -44,7 +44,7 @@ module.exports = () => {
         display: "standalone", //metadata
         start_url: "./", //metadata
         publicPath: "./", //metadata
-        icons: [],
+        // icons: [],
       }),
     ],
 
