@@ -8,22 +8,68 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = () => {
   return {
-    mode: 'development',
+    mode: "development",
     entry: {
-      main: './src/js/index.js',
-      install: './src/js/install.js'
+      main: "./src/js/index.js",
+      install: "./src/js/install.js",
     },
     output: {
-      filename: '[name].bundle.js',
-      path: path.resolve(__dirname, 'dist'),
+      filename: "[name].bundle.js",
+      path: path.resolve(__dirname, "dist"),
     },
     plugins: [
-      
+      // mod 19 act 28
+      // webpack plugin that generates HTML file and creates bundles
+      new HtmlWebpackPlugin({
+        template: "./index.html",
+        title: "Just Another Text Editor",
+      }),
+
+      // Inject service worker
+      new InjectManifest({
+        swSrc: "./src-sw.js",
+        swDest: "src-sw.js",
+      }),
+
+      // create manifest.json file  //provides metadata about your web app, allowing browsers to install it as a native app on users' devices
+      new WebpackPwaManifest({
+        fingerprints: false, //fingerprinting can prevent caching issues, but complicates deployment/versioning
+        inject: true, //ensures that the browser can access the manifest and install the PWA
+        name: "Just Another Text Editor", //basic metadata for the app
+        short_name: "J.A.T.E.", //metadata
+        description: "Take notes with JavaScript syntax highlighting!", //metadata
+        background_color: "#225ca3", //metadata
+        theme_color: "#225ca3", //metadata
+        orientation: "portrait", //metadata
+        display: "standalone", //metadata
+        start_url: "./", //metadata
+        publicPath: "./", //metadata
+        icons: [],
+      }),
     ],
 
     module: {
+      // define how js/css files are processed during the build
       rules: [
-        
+        {
+          test: /\.css$/i, //match all css files
+          use: ["style-loader", "css-loader"],
+        },
+        {
+          test: /\.m?js$/,
+          exclude: /node_modules/, //exclude node modules folder
+          // configure the babel loader for use with EcmaScript v6
+          use: {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env"],
+              plugins: [
+                "@babel/plugin-proposal-object-rest-spread",
+                "@babel/transform-runtime",
+              ],
+            },
+          },
+        },
       ],
     },
   };
