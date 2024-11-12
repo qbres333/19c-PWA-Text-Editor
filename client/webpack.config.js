@@ -44,7 +44,14 @@ module.exports = () => {
         display: "standalone", //metadata
         start_url: "./", //metadata
         publicPath: "./", //metadata
-        // icons: [],
+        icons: [
+          {
+            // store logo in bundled assets
+            src: path.resolve('src/images/logo.png'),
+            sizes: [512],
+            destination: path.join('assets', 'icons'),
+          }
+        ],
       }),
     ],
 
@@ -58,7 +65,7 @@ module.exports = () => {
         {
           test: /\.m?js$/,
           exclude: /node_modules/, //exclude node modules folder
-          // configure the babel loader for use with EcmaScript v6
+          // configure the babel loader for use with EcmaScript 6
           use: {
             loader: "babel-loader",
             options: {
