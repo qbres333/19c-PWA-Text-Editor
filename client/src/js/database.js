@@ -14,7 +14,7 @@ const initdb = async () =>
 
 // TODO: Add logic to a method that accepts some content and adds it to the database
 // mod 19 act 26
-export const putDb = async (id, content) => {
+export const putDb = async (content) => {
   console.log("PUT request to database");
   // open the jate DB, version 1
   const jateDb = await openDB('jate', 1);
@@ -23,7 +23,7 @@ export const putDb = async (id, content) => {
   // access the jate object store (container for data within idb DB)
   const store = tx.objectStore('jate');
   // add or update a record in the jate object store (PUT returns an object)
-  const request = store.put({ id: id, value: content });
+  const request = store.put({ value: content });
   // wait for the PUT operation to complete and store in result
   const result = await request;
   // log the result
