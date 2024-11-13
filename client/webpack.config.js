@@ -8,14 +8,14 @@ const { InjectManifest } = require('workbox-webpack-plugin');
 
 module.exports = () => {
   return {
-    mode: "development",
+    mode: "production",
     entry: {
       main: "./src/js/index.js",
       install: "./src/js/install.js",
     },
     output: {
       filename: "[name].bundle.js",
-      path: path.resolve(__dirname, "dist"),
+      path: path.resolve(__dirname, 'dist'),
     },
     plugins: [
       // mod 19 act 28
@@ -48,7 +48,7 @@ module.exports = () => {
           {
             // store logo in bundled assets
             src: path.resolve('src/images/logo.png'),
-            sizes: [512],
+            sizes: [96, 512],
             destination: path.join('assets', 'icons'),
           }
         ],
@@ -60,7 +60,7 @@ module.exports = () => {
       rules: [
         {
           test: /\.css$/i, //match all css files
-          use: ["style-loader", "css-loader"],
+          use: ["style-loader", "css-loader"], //use loaders to transform css files before adding to the bundle
         },
         {
           test: /\.m?js$/,
