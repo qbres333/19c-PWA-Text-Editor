@@ -15,7 +15,7 @@ module.exports = () => {
     },
     output: {
       filename: "[name].bundle.js",
-      path: path.resolve(__dirname, 'dist'),
+      path: path.resolve(__dirname, "dist"),
     },
     plugins: [
       // mod 19 act 28
@@ -23,6 +23,8 @@ module.exports = () => {
       new HtmlWebpackPlugin({
         template: "./index.html",
         title: "Just Another Text Editor",
+        // add favicon property
+        favicon: "./favicon.ico",
       }),
 
       // Inject service worker
@@ -47,10 +49,10 @@ module.exports = () => {
         icons: [
           {
             // store logo in bundled assets
-            src: path.resolve('src/images/logo.png'),
-            sizes: [96, 512],
-            destination: path.join('assets', 'icons'),
-          }
+            src: path.resolve("src/images/logo.png"),
+            sizes: [96, 128, 192, 256, 384, 512], //different sizes for different platforms
+            destination: path.join("assets", "icons"),
+          },
         ],
       }),
     ],
