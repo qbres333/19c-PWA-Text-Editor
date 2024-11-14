@@ -31,6 +31,11 @@ export default class {
 
     this.editor.on('change', () => {
       localStorage.setItem('content', this.editor.getValue());
+      // add functionality to save individual lines as separate notes (split by new line character)
+      const content = this.editor.getValue();
+      const lines  = content.split('\n\n');
+      // save each line to the database with putDb
+      lines.forEach(line => putDb(line));
     });
 
     // Save the content of the editor when the editor itself loses focus
