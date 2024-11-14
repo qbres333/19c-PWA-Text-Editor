@@ -17,3 +17,9 @@ https://developer.mozilla.org/en-US/docs/Web/API/Window/appinstalled_event
 
 html-webpack-plugin Plugin Options:
 https://github.com/jantimon/html-webpack-plugin#options
+
+CodeMirror events (changes):
+https://codemirror.net/5/doc/manual.html#events
+
+CodeMirror commands (getRange):
+https://codemirror.net/5/doc/manual.html#commands

@@ -4,17 +4,17 @@ import { header } from './header';
 
 export default class {
   constructor() {
-    const localData = localStorage.getItem('content');
+    const localData = localStorage.getItem("content");
 
     // check if CodeMirror is loaded
-    if (typeof CodeMirror === 'undefined') {
-      throw new Error('CodeMirror is not loaded');
+    if (typeof CodeMirror === "undefined") {
+      throw new Error("CodeMirror is not loaded");
     }
 
-    this.editor = CodeMirror(document.querySelector('#main'), {
+    this.editor = CodeMirror(document.querySelector("#main"), {
       value: header,
-      mode: 'javascript',
-      theme: 'monokai',
+      mode: "javascript",
+      theme: "monokai",
       lineNumbers: true,
       lineWrapping: true,
       autofocus: true,
@@ -25,23 +25,20 @@ export default class {
     // When the editor is ready, set the value to whatever is stored in indexeddb.
     // Fall back to localStorage if nothing is stored in indexeddb, and if neither is available, set the value to header.
     getDb().then((data) => {
-      console.info('Loaded data from IndexedDB, injecting into editor');
+      console.info("Loaded data from IndexedDB, injecting into editor");
       this.editor.setValue(header || data || localData);
     });
+    // // starter code
+    // 'change' event executes with every keystroke, which is not the desired behavior
+    this.editor.on("change", () => {
+        localStorage.setItem("content", this.editor.getValue());
+      });
 
-    this.editor.on('change', () => {
-      localStorage.setItem('content', this.editor.getValue());
-      // add functionality to save individual lines as separate notes (split by new line character)
-      const content = this.editor.getValue();
-      const lines  = content.split('\n\n');
-      // save each line to the database with putDb
-      lines.forEach(line => putDb(line));
-    });
 
     // Save the content of the editor when the editor itself loses focus
-    this.editor.on('blur', () => {
-      console.log('The editor has lost focus');
-      putDb(localStorage.getItem('content'));
+    this.editor.on("blur", () => {
+      console.log("The editor has lost focus");
+      putDb(localStorage.getItem("content"));
     });
   }
 }
