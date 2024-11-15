@@ -28,8 +28,7 @@ export default class {
       console.info("Loaded data from IndexedDB, injecting into editor");
       this.editor.setValue(header || data || localData);
     });
-    // // starter code
-    // 'change' event executes with every keystroke, which is not the desired behavior
+
     this.editor.on("change", () => {
         localStorage.setItem("content", this.editor.getValue());
       });
