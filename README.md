@@ -39,6 +39,8 @@ https://github.com/qbres333/19c-PWA-Text-Editor
 The text editor app can be accessed or downloaded at the following link:
 https://one9c-pwa-text-editor.onrender.com
 
+![J.A.T.E preview](client/src/images/jate-preview.png)
+
 ## Credits
 
 Caching Strategies:
